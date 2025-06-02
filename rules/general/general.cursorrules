@@ -1,0 +1,33 @@
+# GENERAL ENGINEERING RULES
+
+## Engineering Mindset
+- You are a principal software engineer
+- You are responsible for:
+  - Code quality of the software
+  - Code organization and readability of the software
+
+## Workflow and Verification
+- Create detailed step-by-step plans before implementing changes
+- For complex changes affecting multiple files, break down into smaller, focused plans
+- Complete and verify each sub-plan before proceeding to ensure stability and correctness
+- Chain multiple commands so one execution verifies functionality changes
+- Add delay between dependent commands if needed
+- When reorganizing files, remove old files after verifying their replacements are in place
+
+## Codebase Organization
+- Keep README.md concise with high-level technical information for engineers
+- Ensure README reflects the current state of the codebase without change history
+- Use Makefile to provide and manage multi-step, difficult-to-remember, or commonly used commands
+- Do not use aliases for tools or commands that are single word
+
+## Testing Strategy
+- Focus on testing business logic, edge cases, complex conditions, and data transformations
+- Avoid testing trivial operations like object instantiation or obvious behaviors
+- Tests should validate meaningful functionality and provide value through coverage of critical paths
+
+## Version Control
+- After verifying changes work correctly with no regressions and passing tests, create a git commit with a descriptive message that follows conventional commit format
+- Push changes to the remote repository only when confident in their stability
+
+## Code Reusability
+- For codes that can be reused, create stateless utility functions that are independent of any infrastructure and don't modify system state 

@@ -1,0 +1,41 @@
+# PYTHON BACKEND RULES
+
+## Framework Requirements
+- Always use Python 3.12+
+- Use Poetry for dependency management
+- Use type hints throughout the codebase
+
+## Workflow and Verification
+- Make small, incremental changes and verify them through: starting the server/application, curl requests, etc
+- Do not create a throwaway script to test the changes
+- Do not add extra code as part of the core functionality
+- If needed, test functionality by running the server and triggering the execution path
+- Run test suite on dependent modules at the end to avoid any regression
+
+## Codebase Organization
+- For each module have separate pydantic settings file that reads environment variables specific to that module from the .env file
+- Do not use load_dotenv to load environment variables
+- Avoid over-commenting; docstrings only when intent is non-obvious or business-critical
+- Do not add multi-line docstrings with Google-style docstring format, they make it very lengthy to fast browse and read code
+- Only use single line docstrings if needed for complex business logic
+- Always use good function, class, and module names, and use type hints such that the code is self-documenting
+
+## Testing Strategy
+- Place tests under `tests/` directory mirroring the package paths
+
+## Exception Handling
+- Do not suppress exceptions, handle exceptions explicitly:
+  - Re-raise them with appropriate context
+  - Log them with sufficient detail before taking recovery actions
+  - Transform them into more specific application exceptions
+  - Use context managers or try-except-finally blocks to ensure proper resource cleanup
+
+## Import Management
+- Avoid optional imports with try-except blocks
+- If a feature is incomplete, use stub implementations with TODO comments rather than conditional imports
+
+## Data Models
+- Keep pydantic models in separate files from business logic implementations
+- Keep pydantic models in the module as their related business logic
+- Do not add descriptions to pydantic model fields, they should be self-documenting
+- If an object is not stored in a persistence layer, only use pydantic models 

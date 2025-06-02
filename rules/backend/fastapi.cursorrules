@@ -1,0 +1,18 @@
+# FASTAPI BACKEND RULES
+
+## Framework Requirements
+- Always use FastAPI framework
+
+## API Design
+- Do not automatically attach a new module with api endpoints, unless specified
+
+## Business Logic Architecture
+- If a business logic module depends on data-access, queue or other infrastructure, they should be accessed via a module/repository (named: `db_postgres.py`, `db_dynamo.py`, `queue_kafka.py`, etc) to hide implementation details
+- Business logic modules should be composed of the modules it depends on and should not use inheritance
+- Business logic modules should accept dependencies as parameters to enable testing with mocks
+- For initial development, do not add a separate factory module for the business logic modules
+
+## Data Model Strategy
+- Reuse persistence layer models (like SQLModel objects) as modules interface objects when possible; otherwise transform objects only when necessary
+- If a module obviously uses another module's model, try reusing the other module's model as an interface object
+- We might also check and consider if there's some overlap in these modules 
