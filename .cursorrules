@@ -22,6 +22,11 @@
 - Maintain consistent structure across all rule files
 - Remove redundancy between similar rule sets
 
+## Commit Practices
+- **Small Commits**: Make focused, single-purpose commits
+- **Concise Messages**: Keep commit messages brief and descriptive
+- **Incremental Changes**: Commit early and often with logical units of work
+
 ## Quality Control
 - Test rules in real projects before adding
 - Remove rules that don't provide clear value
