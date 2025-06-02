@@ -4,17 +4,29 @@
 - Always use FastAPI framework
 
 ## Project Organization
-- **Router Structure**: Organize endpoints using APIRouter for modular design
-- **Dependency Injection**: Use FastAPI's dependency injection for database connections and authentication
-- **API Documentation**: Leverage automatic OpenAPI documentation generation
+- Router Structure: Organize endpoints using APIRouter for modular design
+- Dependency Injection: Use FastAPI's dependency injection for database connections and authentication
+- API Documentation: Leverage automatic OpenAPI documentation generation
+
+## AI Code Generation Guidelines
+- Always generate separate request/response models even for simple endpoints - don't use dict or primitive types
+- Generate endpoints with explicit dependency injection rather than importing modules directly
+- When generating multiple related endpoints, create them in separate router modules by domain
+- Always generate async endpoint functions for any database or external API operations
+- Generate three-layer structure: route → service → repository for any data operations
+- When generating endpoints that modify data, always return the created/updated resource
+- Generate proper HTTP status codes and don't default to 200 for everything
+- Generate consistent response models with common fields (success, message, data)
+- Always generate input validation using Pydantic models rather than manual parameter checking
+- When generating pagination, create reusable pagination models and response wrappers
 
 ## API Design
 - Do not automatically attach a new module with api endpoints, unless specified
 
 ## Testing
-- **TestClient**: Use FastAPI's TestClient for API endpoint testing
-- **Database Testing**: Use test databases for integration testing
-- **Authentication Testing**: Test protected endpoints with proper authentication
+- TestClient: Use FastAPI's TestClient for API endpoint testing
+- Database Testing: Use test databases for integration testing
+- Authentication Testing: Test protected endpoints with proper authentication
 
 ## Business Logic Architecture
 - If a business logic module depends on data-access, queue or other infrastructure, they should be accessed via a module/repository (named: `db_postgres.py`, `db_dynamo.py`, `queue_kafka.py`, etc) to hide implementation details

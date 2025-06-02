@@ -1,20 +1,20 @@
 # CURSOR RULES FOR SYNC_AGENT_RULE PROJECT
 
 ## Project Philosophy
-- **Concise but Complete**: Include only essential information that loses meaning without specificity
-- **Actionable over Verbose**: Every rule should be immediately actionable by developers
-- **Hierarchical Organization**: Structure from universal → language → framework → project-specific
+- Concise but Complete: Include only essential information that loses meaning without specificity
+- Actionable over Verbose: Every rule should be immediately actionable by developers
+- Hierarchical Organization: Structure from universal → language → framework → project-specific
 
 ## Documentation Standards
-- **README**: Keep summarized, target software engineers, highlight key concepts only
-- **Rule Files**: Focus on what matters - omit obvious or trivial guidelines
-- **Examples**: Include practical, real-world applicable rules only
+- README: Keep summarized, target software engineers, highlight key concepts only
+- Rule Files: Focus on what matters - omit obvious or trivial guidelines
+- Examples: Include practical, real-world applicable rules only
 
 ## Rule Creation Guidelines
-- **Essential Information Only**: Include details that change behavior or prevent errors
-- **Avoid Generic Advice**: Skip basic programming principles everyone knows
-- **Technology-Specific Focus**: Include rules that are specific to the technology stack
-- **Workflow Integration**: Rules should integrate into actual development workflow
+- Essential Information Only: Include details that change behavior or prevent errors
+- Avoid Generic Advice: Skip basic programming principles everyone knows
+- Technology-Specific Focus: Include rules that are specific to the technology stack
+- Workflow Integration: Rules should integrate into actual development workflow
 
 ## File Organization
 - Use clear, descriptive naming conventions
@@ -22,10 +22,17 @@
 - Maintain consistent structure across all rule files
 - Remove redundancy between similar rule sets
 
+## Formatting Consistency
+- List Formatting: Use dashes (-) for all list items across all rule files
+- No Mixed Styles: Do not mix dashes (-), asterisks (*), or bold formatting (**text**:) within the same list or file
+- Hierarchy Markers: Use ## for sections, ### for subsections if needed
+- Numbering: Only use numbered lists (1., 2., 3.) when order/priority matters
+- Consistent Styling: Maintain same formatting patterns across all rule files in the repository
+
 ## Commit Practices
-- **Small Commits**: Make focused, single-purpose commits
-- **Concise Messages**: Keep commit messages brief and descriptive
-- **Incremental Changes**: Commit early and often with logical units of work
+- Small Commits: Make focused, single-purpose commits
+- Concise Messages: Keep commit messages brief and descriptive
+- Incremental Changes: Commit early and often with logical units of work
 
 ## Quality Control
 - Test rules in real projects before adding

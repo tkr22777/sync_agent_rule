@@ -7,9 +7,18 @@
 - Always use type hints while generating code
 
 ## Project Structure
-- **Virtual Environments**: Always use virtual environments for dependency isolation
-- **Dependency Management**: Use requirements.txt or poetry.lock for reproducible builds
-- **Code Quality**: Follow PEP 8 standards and use automated formatting tools
+- Virtual Environments: Always use virtual environments for dependency isolation
+- Dependency Management: Use requirements.txt or poetry.lock for reproducible builds
+- Code Quality: Follow PEP 8 standards and use automated formatting tools
+
+## AI Code Generation Guidelines
+- Always separate I/O operations (database, API calls) from business logic into different functions
+- Always generate async functions for database queries, HTTP calls, file operations
+- Never mix sync and async patterns within the same operation flow
+- Always use type hints for function parameters and return values
+- Generate separate route → service → repository layers for any data operations
+- Never put business logic directly in API endpoint functions
+- Generate consistent naming: `{domain}_service.py`, `{domain}_models.py`, `{domain}_repository.py`
 
 ## Workflow and Verification
 - Make small, incremental changes and verify them through: starting the server/application, curl requests, etc
@@ -31,9 +40,9 @@
 
 ## Testing Strategy
 - Place tests under `tests/` directory mirroring the package paths
-- **Unit Testing**: Use pytest for comprehensive test coverage
-- **Integration Testing**: Test database connections and external API integrations
-- **Mocking**: Use appropriate mocking for external dependencies
+- Unit Testing: Use pytest for comprehensive test coverage
+- Integration Testing: Test database connections and external API integrations
+- Mocking: Use appropriate mocking for external dependencies
 
 ## Exception Handling
 - Do not suppress exceptions, handle exceptions explicitly:
@@ -53,6 +62,8 @@
 - Separate the data-access layer from business logic. A (business) logic module should compose (instead of inherit) data-access modules and other business-logic modules
 - Create Pydantic data models in separate files and organize them alongside their corresponding business logic
 - When models are shared between business logic and data access layers, use a single definition to avoid duplication
+
+## Code Reusability
 - For codes that can be reused, create stateless utility functions that are independent of self-hosted infrastructure and don't modify system state
 
 ## Data Models
