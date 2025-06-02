@@ -13,21 +13,50 @@
 - Chain multiple commands so one execution verifies functionality changes
 - Add delay between dependent commands if needed
 - When reorganizing files, remove old files after verifying their replacements are in place
+- Make small, incremental changes and verify them through terminal commands
+- Always incrementally add small, non-breaking changes and test them
+- Do not add extra code as part of the core functionality
+
+## Terminal Command Best Practices
+- **Minimal echoes**: Avoid excessive echo statements. Terminal output is sufficient for understanding command results
+- **Selective concatenation**: Only concatenate commands when performing many similar operations (e.g., deleting 10 resources). Don't concatenate unrelated commands
+- **Preserve important output**: For critical commands, don't pipe to jq or other tools if error details might be lost. Let raw output show first
+- **Separate long-running commands**: Don't concatenate commands that take time to execute. Run them separately so progress can be monitored
+- **Trust terminal output**: Command output usually provides sufficient information without additional logging or echoing
+
+## File and Directory Operations
+- **Prefer terminal commands**: For moving, renaming, or reorganizing files/directories, use terminal commands (`mv`, `cp`, `mkdir`, etc.) instead of reading entire files and recreating them
+- **Direct operations**: Use `mv source target` for renames/moves rather than complex file manipulation
+- **Efficiency first**: Terminal commands are faster and preserve file metadata, permissions, and timestamps
 
 ## Codebase Organization
 - Keep README.md concise with high-level technical information for engineers
 - Ensure README reflects the current state of the codebase without change history
 - Use Makefile to provide and manage multi-step, difficult-to-remember, or commonly used commands
 - Do not use aliases for tools or commands that are single word
+- Provide a Makefile for multi-step or hard-to-remember commands; avoid aliases for single-word tools or commands
+- **Compact Formatting**: Use minimal spacing and avoid excessive blank lines or separator characters. Keep documentation dense but readable
 
 ## Testing Strategy
 - Focus on testing business logic, edge cases, complex conditions, and data transformations
 - Avoid testing trivial operations like object instantiation or obvious behaviors
 - Tests should validate meaningful functionality and provide value through coverage of critical paths
+- Run test suite on dependent modules at the end to avoid any regression
+- If automated tests help, place them under tests/ or add them to the codebase
+- Place all tests under `tests/` mirroring package paths
 
 ## Version Control
 - After verifying changes work correctly with no regressions and passing tests, create a git commit with a descriptive message that follows conventional commit format
 - Push changes to the remote repository only when confident in their stability
+- NEVER commit or push changes without explicitly asking the user first
+- Always ask "Should I commit these changes?" before running git commands
+- Keep commit messages short (under 50 characters) and use imperative mood
+- Use format: "Action: brief description" (e.g., "Fix: text processor error handling")
+- For multi-line commits, keep first line under 50 chars, add blank line, then details
+
+## Code Quality
+- Avoid over-commenting; docstrings only when intent is non-obvious or business-critical
+- If you are reorganizing files in codebase, make sure to remove old files if corresponding new files are created
 
 ## Code Reusability
 - For codes that can be reused, create stateless utility functions that are independent of any infrastructure and don't modify system state 

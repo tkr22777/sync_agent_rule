@@ -1,0 +1,11 @@
+# REACT FRONTEND RULES
+
+## Project Structure
+- **Component Organization**: Group components by feature, not by type
+- **State Management**: Use appropriate state management (useState, useContext, Redux)
+- **Performance**: Implement React.memo, useMemo, useCallback for optimization
+
+## Testing Strategy
+- **Component Testing**: Use React Testing Library for component testing
+- **Integration Testing**: Test user interactions and data flow
+- **Mock External APIs**: Mock API calls for reliable testing 

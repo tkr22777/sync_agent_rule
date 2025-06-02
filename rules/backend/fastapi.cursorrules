@@ -3,8 +3,18 @@
 ## Framework Requirements
 - Always use FastAPI framework
 
+## Project Organization
+- **Router Structure**: Organize endpoints using APIRouter for modular design
+- **Dependency Injection**: Use FastAPI's dependency injection for database connections and authentication
+- **API Documentation**: Leverage automatic OpenAPI documentation generation
+
 ## API Design
 - Do not automatically attach a new module with api endpoints, unless specified
+
+## Testing
+- **TestClient**: Use FastAPI's TestClient for API endpoint testing
+- **Database Testing**: Use test databases for integration testing
+- **Authentication Testing**: Test protected endpoints with proper authentication
 
 ## Business Logic Architecture
 - If a business logic module depends on data-access, queue or other infrastructure, they should be accessed via a module/repository (named: `db_postgres.py`, `db_dynamo.py`, `queue_kafka.py`, etc) to hide implementation details

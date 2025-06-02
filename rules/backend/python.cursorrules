@@ -4,6 +4,12 @@
 - Always use Python 3.12+
 - Use Poetry for dependency management
 - Use type hints throughout the codebase
+- Always use type hints while generating code
+
+## Project Structure
+- **Virtual Environments**: Always use virtual environments for dependency isolation
+- **Dependency Management**: Use requirements.txt or poetry.lock for reproducible builds
+- **Code Quality**: Follow PEP 8 standards and use automated formatting tools
 
 ## Workflow and Verification
 - Make small, incremental changes and verify them through: starting the server/application, curl requests, etc
@@ -20,8 +26,14 @@
 - Only use single line docstrings if needed for complex business logic
 - Always use good function, class, and module names, and use type hints such that the code is self-documenting
 
+## Configuration Management
+- Use pydantic settings with ENV instead of using load_dotenv to load environment variables (this is creating a tight coupling between the modules and the settings file)
+
 ## Testing Strategy
 - Place tests under `tests/` directory mirroring the package paths
+- **Unit Testing**: Use pytest for comprehensive test coverage
+- **Integration Testing**: Test database connections and external API integrations
+- **Mocking**: Use appropriate mocking for external dependencies
 
 ## Exception Handling
 - Do not suppress exceptions, handle exceptions explicitly:
@@ -33,6 +45,15 @@
 ## Import Management
 - Avoid optional imports with try-except blocks
 - If a feature is incomplete, use stub implementations with TODO comments rather than conditional imports
+- Do not use optional imports with try-except blocks. All modules should be directly imported
+- At any given time, the source code should not have conditional imports or optional feature flags based on import availability
+
+## Business Logic Architecture
+- Business-logic modules must be testable; dependencies should be injectable or mockable via dependency-injection patterns
+- Separate the data-access layer from business logic. A (business) logic module should compose (instead of inherit) data-access modules and other business-logic modules
+- Create Pydantic data models in separate files and organize them alongside their corresponding business logic
+- When models are shared between business logic and data access layers, use a single definition to avoid duplication
+- For codes that can be reused, create stateless utility functions that are independent of self-hosted infrastructure and don't modify system state
 
 ## Data Models
 - Keep pydantic models in separate files from business logic implementations

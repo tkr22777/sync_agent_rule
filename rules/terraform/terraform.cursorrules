@@ -1,0 +1,156 @@
+# TERRAFORM INFRASTRUCTURE RULES
+
+## Project Structure
+- **Modular Design**: Each directory represents a deployable unit
+- **Ordered Dependencies**: Deploy in numbered order (00, 01, 02...)
+- **Single Responsibility**: Each module handles one logical concern
+- **Commons Pattern**: Shared resources in `08_commons/`
+
+## File Organization
+- `00-variables.tf`: Input variables with descriptions
+- `01-data.tf`: Data sources and external references  
+- `02-main.tf`: Provider and backend configuration
+- `03-*.tf`: Resource definitions (numbered by type)
+- `04-outputs.tf`: Output values and CLI examples
+
+**Example Module Structure**:
+```
+module_name/
+├── 00-variables.tf     # All input variables with descriptions
+├── 01-data.tf          # External data source lookups
+├── 02-main.tf          # Provider and version requirements
+├── 03-resource-type.tf # Primary resource definitions
+├── 04-security.tf      # Security groups, IAM roles
+├── 05-networking.tf    # Network-related resources
+├── 06-outputs.tf       # All outputs with CLI examples
+└── README.md          # Module documentation
+```
+
+## Variable Organization
+- **Group Similar Variables**: Organize variables by logical sections with clear headers
+- **Section Headers**: Use commented section dividers for readability
+- **Logical Grouping**: Group by: Application config, VPC config, Subnet config, Database config, etc.
+- **Default Values Preferred**: Use default values in variables.tf files instead of separate .tfvars files for environment-specific configurations
+
+## Naming Conventions
+```hcl
+# Resources: service-purpose-modifier
+resource "aws_s3_bucket" "app_assets_bucket" {}
+
+# Variables: snake_case with clear intent
+variable "database_instance_class" {}
+
+# Outputs: descriptive with usage context
+output "db_connection_string" {}
+```
+
+## Backend Configuration Standards
+- **No Backend in Modules**: Individual modules should NEVER include backend configuration blocks
+- **Centralized State Management**: Backend configuration is handled at the environment level only
+- **Environment-Level Backend**: Only `infra/environments/{env}/` directories should contain backend configuration
+
+## Version Standards
+- **Consistent Version**: Use Terraform `~> 1.5.0` across ALL modules and environments
+- **AWS Provider**: Use AWS provider `~> 5.0` for consistency and latest features
+- **Version Constraints**: Always specify version constraints to prevent unexpected updates
+
+**Standard Provider Block**:
+```hcl
+terraform {
+  required_version = "~> 1.5.0"
+  
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.aws_region
+  
+  default_tags {
+    tags = {
+      Environment = var.environment
+      Project     = var.app_name
+      ManagedBy   = "terraform"
+    }
+  }
+}
+```
+
+## Data Source Patterns
+- **Use Filter Instead of Tags**: ALL modules must use `filter` blocks for external resource discovery, never `tags` blocks
+- **Consistent Naming Pattern**: Use `tag:Name` filter with environment-based naming for predictable resource discovery
+- **Conditional Data Sources**: Use `count` parameter for optional resource lookups to handle missing resources gracefully
+
+**Example Patterns**:
+```hcl
+# ✅ CORRECT: Use filter with tag:Name for consistent discovery
+data "aws_vpc" "main" {
+  count = var.vpc_id == "" ? 1 : 0
+  filter {
+    name   = "tag:Name"
+    values = ["${var.app_name}-${var.environment}-vpc"]
+  }
+}
+
+# ❌ INCORRECT: Never use tags block - inconsistent and inflexible
+data "aws_vpc" "main" {
+  tags = {
+    Name = "${var.app_name}-${var.environment}-vpc"
+  }
+}
+```
+
+## Code Structure Best Practices
+- **Clear File Purpose**: File names immediately indicate content and purpose
+- **Logical Flow**: Variables → Data → Provider → Resources → Outputs
+- **Descriptive Comments**: Section headers and resource explanations
+- **Consistent Formatting**: Use `terraform fmt` for consistent styling
+- **Resource Grouping**: Group related resources in numbered files (03-database.tf, 04-compute.tf)
+- **Readable Names**: Use descriptive resource and variable names that explain purpose
+- **Documentation**: Include inline comments explaining non-obvious configurations
+
+## Deployment Process
+```bash
+# Template for each module
+cd infra/{module_name}
+terraform init
+terraform plan
+terraform apply
+```
+
+## Post-Deployment Verification
+- **Always verify with AWS CLI**: After terraform deployments, use AWS CLI to confirm actual resource state
+- **Audit for orphaned resources**: Check for resources not managed by current Terraform state
+- **Validate cleanup operations**: Ensure deleted resources are actually removed from AWS
+- **Cross-reference naming**: Verify resource names match expected patterns to catch duplicates
+
+**Standard Verification Commands**:
+```bash
+# Core infrastructure audit
+aws ec2 describe-vpcs --region us-east-1 --output json
+aws ec2 describe-instances --region us-east-1 --output json  
+aws rds describe-db-instances --region us-east-1 --output json
+aws elbv2 describe-load-balancers --region us-east-1 --output json
+```
+
+## Tagging Strategy
+```hcl
+tags = {
+  Name        = "${var.app_name}-${var.environment}-resource-name"
+  Environment = var.environment
+  Project     = var.app_name
+  Module      = "module-name"
+  ManagedBy   = "terraform"
+}
+```
+
+## Testing Strategy
+- Use `terraform plan`
+- **AWS CLI Verification**: Always validate actual AWS resource state after deployments
+- **Orphan Detection**: Use AWS CLI to identify resources not in Terraform state
+- **Cleanup Validation**: Verify deleted resources are actually removed from AWS account
+- **Naming Conflict Detection**: Check for duplicate resource names causing "multiple resources matched" errors 
