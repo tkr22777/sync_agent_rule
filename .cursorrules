@@ -1,0 +1,29 @@
+# CURSOR RULES FOR SYNC_AGENT_RULE PROJECT
+
+## Project Philosophy
+- **Concise but Complete**: Include only essential information that loses meaning without specificity
+- **Actionable over Verbose**: Every rule should be immediately actionable by developers
+- **Hierarchical Organization**: Structure from universal → language → framework → project-specific
+
+## Documentation Standards
+- **README**: Keep summarized, target software engineers, highlight key concepts only
+- **Rule Files**: Focus on what matters - omit obvious or trivial guidelines
+- **Examples**: Include practical, real-world applicable rules only
+
+## Rule Creation Guidelines
+- **Essential Information Only**: Include details that change behavior or prevent errors
+- **Avoid Generic Advice**: Skip basic programming principles everyone knows
+- **Technology-Specific Focus**: Include rules that are specific to the technology stack
+- **Workflow Integration**: Rules should integrate into actual development workflow
+
+## File Organization
+- Use clear, descriptive naming conventions
+- Group related technologies together
+- Maintain consistent structure across all rule files
+- Remove redundancy between similar rule sets
+
+## Quality Control
+- Test rules in real projects before adding
+- Remove rules that don't provide clear value
+- Update rules based on practical experience
+- Keep examples current with latest best practices

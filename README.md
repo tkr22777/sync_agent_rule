@@ -1,2 +1,3 @@
-# sync_agent_rule
-Storage and a script to sync agent (cursor) rules across project.
+# Cursor Rules Repository
+
+Organized collection of Cursor AI rules for different development contexts. Pick, customize, and sync rules across projects.
