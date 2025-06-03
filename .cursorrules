@@ -16,6 +16,20 @@
 - Technology-Specific Focus: Include rules that are specific to the technology stack
 - Workflow Integration: Rules should integrate into actual development workflow
 
+## Rule Extraction and Processing
+- Complete Content Audit: After extracting rules from example files, conduct comprehensive audit comparing original content against organized rules
+- Missing Content Identification: Systematically check for critical sections that may have been overlooked during initial extraction
+- Technology-Specific Completeness: Ensure all domain-specific patterns (security, cost optimization, validation) are captured
+- Cross-Reference Verification: Compare processed files against organized rules to identify gaps
+- Expert Review Approach: Apply domain expertise lens to identify critical missing patterns for each technology stack
+- Post-Processing Validation: Always perform final completeness check before considering extraction complete
+
+## Content Categorization Standards
+- Universal vs Specific: Properly categorize universal patterns in general rules, technology-specific patterns in appropriate domains
+- Avoid Duplication: Move shared patterns to appropriate general categories rather than duplicating across specific rule files
+- Logical Grouping: Place infrastructure-specific reusability in backend rules, AI code generation patterns in general rules
+- Hierarchical Placement: Ensure rules are placed at the most appropriate level of the hierarchy
+
 ## File Organization
 - Use clear, descriptive naming conventions
 - Group related technologies together
@@ -28,6 +42,7 @@
 - Hierarchy Markers: Use ## for sections, ### for subsections if needed
 - Numbering: Only use numbered lists (1., 2., 3.) when order/priority matters
 - Consistent Styling: Maintain same formatting patterns across all rule files in the repository
+- Format Verification: Check all rule files for formatting consistency before committing changes
 
 ## Commit Practices
 - Small Commits: Make focused, single-purpose commits
